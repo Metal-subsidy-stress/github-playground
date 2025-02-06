@@ -6,7 +6,7 @@ This repo was created to share some basic GitHub lingo and website layout, while
 ---
 
 
-Here are some [slides](https://docs.google.com/presentation/d/1-JVKdk-pUUrQAJ_VBgYqQzmCYRpd9iCS/edit?usp=drive_link&ouid=112355055323589121967&rtpof=true&sd=true) to go along with lab meeting that contains some **key definitions** (also shown [below](#key-definitions)) and a bit of an [**activity**](https://github.com/Metal-subsidy-stress/github-playground/blob/main/training/github-activity.md). 
+Here are some [slides](https://drive.google.com/file/d/1-Jn508UivuiZhSdAZnRJA8sEvjOWtioT/view?usp=drive_link) to go along with this training that contains some **key definitions** (also shown [below](#key-definitions)) and an [**activity**](https://github.com/Metal-subsidy-stress/github-playground/blob/main/training/github-activity.md). 
 
 ### By the end of the activity, we should have practiced:
 :heavy_check_mark: Cloning a repository
