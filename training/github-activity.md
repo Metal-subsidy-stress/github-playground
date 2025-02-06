@@ -47,13 +47,18 @@
 2.  In RStudio click the "New Branch" button and give it a unique name.
     -   Now you can all work on a unique "branch" of the same code without disrupting the *Main* code or generating conflicts with your collaborators
 3.  Open the file `test-function.R`
-4.  Change the text
-5.  Navigate to **Pull requests** tab (up top) and click on **New pull request** (green button, right side)
-6.  Under **Compare** select your new branch
-7.  GitHub will show you the **diffs**
-8.  Select *Create pull request*
-9.  GitHub checks whether your `new branch` and `main` can be merged automatically (without any conflicts)
-10. If everythig looks good, click *Confirm merge*
+4.  Change the text `good job` to your own affirmation. Save the file, Commit, and Push to remote.
+
+### Pull requests
+
+Pull requests are how we merge Branches back with the main code on the repository. Typically, it makes sense to have only 1 or 2 admins (usually the repository owner) that complete the pull requests.
+
+1.  On the GitHub website, navigate to **Pull requests** tab and click on **New pull request** (green button, right side)
+2.  Under **Compare** select your new branch
+3.  GitHub will show you the **diffs**
+4.  Select *Create pull request*
+5.  GitHub checks whether your `new branch` and `main` can be merged automatically (without any conflicts)
+6.  If everythig looks good, click *Confirm merge*
 
 -   You can delete your branch or keep it if you will continue working on a specific task.
 -   You can leave detailed comments, refer issues, tag individuals, and add lists of tasks within each pull request.
