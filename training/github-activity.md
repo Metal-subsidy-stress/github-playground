@@ -13,7 +13,7 @@
     -   I recommend you do **NOT** use a cloud location (e.g., Google Drive, OneDrive) as the duplicate version control can cause issues
 8.  Click "Create project" to finish setup
 
-## 2. Create a file on GitHub.com
+## 2. Create a file on GitHub website
 
 1.  Return to the GitHub repository on your browser
 2.  Navigate to **training** directory
@@ -62,7 +62,7 @@ Seperate repositories should be used for different projects and analyses. You st
 
 ### Pull requests
 
-Pull requests are how we merge Branches back with the main code on the repository. Typically, it makes sense to have only 1 or 2 admins (usually the repository owner) that complete the pull requests.
+Pull requests are how we merge Branches back with the main code on the repository. Typically, it's best to have only 1 or 2 admins (usually the repository owner) that complete the pull requests.
 
 1.  On the GitHub website, navigate to **Pull requests** tab and click on **New pull request** (green button, right side)
 2.  Under **Compare** select your new branch
