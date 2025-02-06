@@ -49,7 +49,7 @@ Seperate repositories should be used for different projects and analyses. You st
 2.  Navigate to the Team page for your group (e.g., <https://github.com/orgs/Metal-subsidy-stress/teams/task-3-environment>)
 3.  Click "Repositories" along the top
 4.  Click "Add repository" and give the new repo a unique and informative name
-5.  Use the steps in #3 to pull the repository to your local machine.
+5.  Use the steps in #1 to pull the repository to your local machine.
     -   Don't forget to add a readme file to each repository!
 
 ## 6. Working on the same code - branching
