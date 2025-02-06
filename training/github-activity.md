@@ -28,7 +28,7 @@
 2.  In the "Environment" pane click on the "Git" tab
 3.  Click "Pull" to download any changes to the repository from the remote
 
-## 3. Create a file on local directory
+## 4. Create a file on local directory
 
 1.  Create or find a simple text file, csv, or script, and drag the file into the **training** directory on your local machine
 2.  In RStudio, you'll notice the new file in Git section with two question mark boxes in the Status column
@@ -41,7 +41,18 @@
     -   The Commit you have just done is still on your local machine. You will need to "Push" the changes to send them to the remote.
 7.  Click "Push" to send your file to the remote repo
 
-## 5. Working on the same code - branching
+## 5. Starting a new repo
+
+Seperate repositories should be used for different projects and analyses. You start a new repository from the GitHub website.
+
+1.  To ensure that other members of the working group have access and the correct permissions for your repository please make it through the GitHub team page.
+2.  Navigate to the Team page for your group (e.g., <https://github.com/orgs/Metal-subsidy-stress/teams/task-3-environment>)
+3.  Click "Repositories" along the top
+4.  Click "Add repository" and give the new repo a unique and informative name
+5.  Use the steps in #3 to pull the repository to your local machine.
+    -   Don't forget to add a readme file to each repository!
+
+## 6. Working on the same code - branching
 
 1.  When you may have multiple people working on the same file it is best to create your own Branch to work locally on changes and not affect others
 2.  In RStudio click the "New Branch" button and give it a unique name.
@@ -58,7 +69,7 @@ Pull requests are how we merge Branches back with the main code on the repositor
 3.  GitHub will show you the **diffs**
 4.  Select *Create pull request*
 5.  GitHub checks whether your `new branch` and `main` can be merged automatically (without any conflicts)
-6.  If everythig looks good, click *Confirm merge*
+6.  If everything looks good, click *Confirm merge*
 
 -   You can delete your branch or keep it if you will continue working on a specific task.
 -   You can leave detailed comments, refer issues, tag individuals, and add lists of tasks within each pull request.
