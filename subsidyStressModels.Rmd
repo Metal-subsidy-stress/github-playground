@@ -1,0 +1,145 @@
+---
+title: "Subsidy–Atress Models"
+author: "Tasks 4 Group" 
+date: "April 2025"
+output: html_document
+extra_dependencies: "subfig"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Modeling the subsidy–stress relationship
+Growth or performance depends on internal metal concentrations $Q$. 
+The Droop equation(Droop 1983) can be used for limited growth to capture reduced performance when metals are limiting:
+$$\text{Subsidy growth} =\mu\left(1-\frac{q}{Q}\right)$$
+Log-logistic dose response equations (Ritz 2010) can be used to capture reduced performance when metal concentrations are high:
+$$\text{Stress growth} =\mu\left(c+\frac{d-c}{1+\left(\frac{Q}{a}\right)^b}\right)$$
+Combining these functions together with a multiplicative approach yields a subsidy-stress growth 
+$$G(Q) =\mu\left(1-\frac{q}{Q}\right)\left(c+\frac{d-c}{1+\left(\frac{Q}{a}\right)^b}\right)$$
+
+```{r initializeParams, echo=FALSE}
+#Initialization: load parameter values:
+    mu=1.2   #max growth rate
+    D=0.2    #death rate
+    ke=0.1   #elimination rate
+    ku=0.1   #uptake rate
+    q=0.005  #min Q required for growth 
+    a=0.17   #log-logistic dose-response parameters 
+    b=15
+    c=0
+    d=1
+    Me=1  #environmental load
+  
+ #set parameter list:
+parameter_values<-c(mu=mu, D=D, ke=ke, ku=ku, q=q, a=a, b=b, c=c, d=d, Me=Me)
+
+Qvec<-seq(0, 0.25, length.out = 100)
+Growth1<-mu*(1-q/Qvec);
+Growth2=mu*(c+(d-c)/(1+(Qvec/a)^b)); 
+Growth3=mu*(1-q/Qvec)*(c+(d-c)/(1+(Qvec/a)^b));
+```
+
+```{r PlotGrowth, fig.cap='Figure 1', fig.subcap=c('(a)', '(b)', '(c)'), fig.ncol=3, out.width="33%", fig.align="center", echo=FALSE}
+plot(Qvec, Growth1, type="l", ylim=c(0,1.2),lwd=3, ylab="Subsidy Growth", xlab="Q", cex.axis=1.5, cex.lab=1.5)
+plot(Qvec, Growth2, type="l", ylim=c(0,1.2),lwd=3, ylab="Stress Growth", xlab="Q", cex.axis=1.5, cex.lab=1.5)
+plot(Qvec, Growth3, type="l", ylim=c(0,1.2), lwd=3,ylab="Subsidy-Stress Growth", xlab="Q",cex.axis=1.5, cex.lab=1.5)
+```
+
+We are using systems of ordinary differential equations to model uptake, elimination, and growth dilution of metal quotas. The base model for a simple primary producer 
+
+$$
+\begin{align}
+\frac{dC}{dt} &=G(Q)C-DC \\
+\frac{dQ}{dt} &=k_uM_\text{env}-K_eQ-G(Q)Q
+\end{align}
+$$
+```{r SolveODE, echo = FALSE}
+#install.packages("deSolve") #required package for ODE solver:
+library(deSolve) 
+
+#Model Equations: 
+Model_SubsidyStress <- function(t, variables, parameters) 
+{with( as.list(c(variables,parameters)),  #lets us access variables and parameters by name 
+       { 
+       
+       G = mu*(1-q/Q)*(c+(d-c)/(1+(Q/a)^b)); #Growth 
+       D = D #Death 
+       U = ku*Me #Uptake
+       E = ke #Elimination
+       #System of ODES:
+       dC = G*C-D*C
+       dQ = U-E*Q-G*Q
+       return(list(c(dC,dQ)))
+       }) 
+} #End Model Equations
+
+
+  #Initialization: Set time:
+  tend=120 #Days for simulation
+  time_values<-seq(0,tend)
+  
+#Initialization: Set initial conditions:  
+  initial_values <- c(C=1,Q=q)
+
+#Solve Model 
+Model_solutions <- ode(
+  y = initial_values,
+  times = time_values,
+  func = Model_SubsidyStress,
+  parms = parameter_values 
+)
+
+Model_solutions<-as.data.frame(Model_solutions) #convert output to dataframe so we can use with()
+```
+
+```{r PlotSims, fig.cap='Figure 2', fig.subcap=c('(a)', '(b)'), fig.ncol=1, out.width="50%", fig.align="center", echo=FALSE}
+with(Model_solutions, {plot(time, Q, type = "l", xlab = "time (days)", ylab = "Q", cex.axis=1.5, cex.lab=1.5,lwd=3)})
+#with(Model_solutions, {plot(time, C, type = "l", xlab = "time (days)", ylab = "Population Density",cex.axis=1.5, cex.lab=1.5,lwd=3, ) })
+```
+
+Looping over $M_\text{env}$ and solving for the steady-state values of $Q$ yields 
+
+```{r LoopMenv, echo=FALSE}
+#Define Menv vector to loop over ranges of values:
+Me_vec<-seq(0, 2, length.out = 100)
+
+#Define Matrix to store results 
+Eq_solutions<-matrix(0, nrow=length(Me_vec), ncol=2) #2 state variables
+colnames(Eq_solutions) <- c("C", "Q")
+C_eq<-vector("numeric" , length(Me_vec))
+Q_eq<-vector("numeric" , length(Me_vec))
+
+for(i in 1:length(Me_vec)){
+    #replace beta parameter value 
+    Me<-Me_vec[i]
+    #reset parameter list:
+    parameter_values<-c(mu=mu, D=D, ke=ke, ku=ku, q=q, a=a, b=b, c=c, d=d, Me=Me)
+    
+    #Solve Model 
+    Model_solutions <- ode(
+      y = initial_values,
+      times = time_values,
+      func = Model_SubsidyStress,
+      parms = parameter_values 
+    )
+    #Store results of last values in row of matrix 
+    Eq_solutions[i, ]<-Model_solutions[tend, 2:3]
+   
+    Model_solutions_df<-as.data.frame(Model_solutions) #convert output to dataframe for max function 
+    C_eq[i]<-max(Model_solutions_df$C)
+    Q_eq[i]<-max(Model_solutions_df$Q)
+  }
+
+Eq_solutions<-as.data.frame(Eq_solutions) #convert output to dataframe so we can use with()
+```
+
+```{r PlotEq, fig.cap='Figure 3', fig.subcap=c('(a)', '(b)'), fig.ncol=1, out.width="50%", fig.align="center", echo=FALSE}
+with(Eq_solutions, {plot(Me_vec, Q_eq, xlab = "Environmental Metal Load", ylab = "Q",cex.axis=1.5, cex.lab=1.5,lwd=3)})
+with(Eq_solutions, {plot(Me_vec, C_eq, xlab = "Environmental Metal Load", ylab = "C",cex.axis=1.5, cex.lab=1.5,lwd=3)})
+```
+
+
+
