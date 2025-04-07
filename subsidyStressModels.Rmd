@@ -139,6 +139,7 @@ Eq_solutions<-as.data.frame(Eq_solutions) #convert output to dataframe so we can
 ```{r PlotEq, fig.cap='Figure 3', fig.subcap=c('(a)', '(b)'), fig.ncol=1, out.width="50%", fig.align="center", echo=FALSE}
 with(Eq_solutions, {plot(Me_vec, Q_eq, xlab = "Environmental Metal Load", ylab = "Q",cex.axis=1.5, cex.lab=1.5,lwd=3)})
 with(Eq_solutions, {plot(Me_vec, C_eq, xlab = "Environmental Metal Load", ylab = "C",cex.axis=1.5, cex.lab=1.5,lwd=3)})
+with(Eq_solutions, {plot(Q_eq, C_eq, xlab = "Q", ylab = "C",xlim = c(0,0.5), cex.axis=1.5, cex.lab=1.5,lwd=3)})
 ```
 
 
