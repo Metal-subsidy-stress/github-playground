@@ -1,0 +1,5 @@
+Moore #2 "Hello World" 
+
+Local -> repository
+
+Test file for pushing local file to repository
