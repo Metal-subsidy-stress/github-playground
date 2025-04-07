@@ -11,7 +11,7 @@ extra_dependencies: "subfig"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Modeling the subsidy–stress relationship
+## Modeling the subsidy–stress relationship: Growth 
 Growth or performance depends on internal metal concentrations $Q$. 
 The Droop equation(Droop 1983) can be used for limited growth to capture reduced performance when metals are limiting:
 $$\text{Subsidy growth} =\mu\left(1-\frac{q}{Q}\right)$$
@@ -142,5 +142,6 @@ with(Eq_solutions, {plot(Me_vec, C_eq, xlab = "Environmental Metal Load", ylab =
 with(Eq_solutions, {plot(Q_eq, C_eq, xlab = "Q", ylab = "C",xlim = c(0,0.5), cex.axis=1.5, cex.lab=1.5,lwd=3)})
 ```
 
+## Modeling the subsidy–stress relationship: Elimination 
 
 
