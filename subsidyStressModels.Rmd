@@ -146,6 +146,8 @@ with(Eq_solutions, {plot(Q_eq, C_eq, xlab = "Q", ylab = "C",xlim = c(0,0.5), cex
 ## Modeling the subsidy–stress relationship: Uptake and Elimination 
 Initially we assume that uptake rates depend on internal metal concentrations $Q$.
 $$U(Q)=\frac{\widehat{k_u}}{1+\sigma_uQ}$$
+Or 
+$$U(Q)=\widehat{k_u}\frac{Q_\text{max}-Q}{Q_\text{max}-Q_\text{min}}$$
 
 Initially we assume that elimination rates depend on internal metal concentrations $Q$.
 $$E(Q) =\frac{\widehat{k_e}Q}{1+\sigma_eQ}$$
