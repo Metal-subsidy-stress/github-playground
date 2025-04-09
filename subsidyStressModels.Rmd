@@ -14,12 +14,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Modeling the subsidy–stress relationship: Growth 
 Growth or performance depends on internal metal concentrations $Q$. 
 The Droop equation(Droop 1983) can be used for limited growth to capture reduced performance when metals are limiting:
-$$\text{Subsidy growth} =\mu\left(1-\frac{q}{Q}\right)$$
+$$\text{Limited growth} =\mu\left(1-\frac{q}{Q}\right)$$
 Log-logistic dose response equations (Ritz 2010) can be used to capture reduced performance when metal concentrations are high:
-$$\text{Stress growth} =\mu\left(c+\frac{d-c}{1+\left(\frac{Q}{a}\right)^b}\right)$$
-Combining these functions together with a multiplicative approach yields a subsidy-stress growth 
+$$\text{Tox growth} =\mu\left(c+\frac{d-c}{1+\left(\frac{Q}{a}\right)^b}\right)$$
+Combining these functions together with a multiplicative approach yields a limited-tox growth which undergoes stress for both low and high values of $Q$: 
 $$G(Q) =\mu\left(1-\frac{q}{Q}\right)\left(c+\frac{d-c}{1+\left(\frac{Q}{a}\right)^b}\right)$$
-
+Setting $c=0$ and $d=1$ simplifies this:
+$$G(Q) =\mu\left(1-\frac{q}{Q}\right)\left(\frac{1}{1+\left(\frac{Q}{a}\right)^b}\right)$$
 ```{r initializeParams, echo=FALSE}
 #Initialization: load parameter values:
     mu=1.2   #max growth rate
@@ -142,6 +143,9 @@ with(Eq_solutions, {plot(Me_vec, C_eq, xlab = "Environmental Metal Load", ylab =
 with(Eq_solutions, {plot(Q_eq, C_eq, xlab = "Q", ylab = "C",xlim = c(0,0.5), cex.axis=1.5, cex.lab=1.5,lwd=3)})
 ```
 
-## Modeling the subsidy–stress relationship: Elimination 
+## Modeling the subsidy–stress relationship: Uptake and Elimination 
+Initially we assume that uptake rates depend on internal metal concentrations $Q$.
+$$U(Q)=\frac{\widehat{k_u}}{1+\sigma_uQ}$$
 
-
+Initially we assume that elimination rates depend on internal metal concentrations $Q$.
+$$E(Q) =\frac{\widehat{k_e}Q}{1+\sigma_eQ}$$
